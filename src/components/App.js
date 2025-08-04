@@ -29,55 +29,70 @@ const App = () => {
     <>
       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <h2 style={{ textAlign: "center" }}>TODO_LIST</h2>
-        <div>
 
-          <form onSubmit={(e) => {
-            e.preventDefault()
-            handleadd()
-          }}>
+        <div className="add_tasks_section"> {/* ADD THIS */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleadd();
+            }}
+          >
             <input type="text" ref={refObj} />
             <button>Submit</button>
           </form>
         </div>
-      </div>
 
-      <div>
-        <ul>
-
-          {list && list.map((v, i) => {
-            return <li key={i}>
-              {flag && update.id == v.id ? (
-                <form onSubmit={(e) => {
-                  e.preventDefault()
-                  dispatch(update_todo(update.id, x))
-                  setFlag(false)
-                }}>
-                  <input type="text" onChange={(e) => {
-                    setX(e.target.value)
-                  }} value={x} />
-                  <button >save</button>
-
-                </form>
-              ) : (
-                <div>
-                  <p>{v.task}</p>
-                  <button style={{ backgroundColor: "green", width: "80px", height: "40px", border: "none", margin: "20px" }} onClick={() => {
-                    setFlag(true)
-                    setX(v.task)
-                    setUpdate(v)
-
-                  }}  >EDIT</button>
-                  <button style={{ backgroundColor: "green", width: "80px", height: "40px", border: "none" }} onClick={() => {
-                    dispatch(del_todo(v.id))
-                  }} >DELETE</button>
-                </div>
-
-              )}
-
-
-            </li>
-          })}
-        </ul>
+        <div className="tasks_section"> {/* ADD THIS */}
+          <ul>
+            {list &&
+              list.map((v, i) => {
+                return (
+                  <li key={i}>
+                    {flag && update.id == v.id ? (
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          dispatch(update_todo(update.id, x));
+                          setFlag(false);
+                        }}
+                      >
+                        <input
+                          type="text"
+                          onChange={(e) => {
+                            setX(e.target.value);
+                          }}
+                          value={x}
+                        />
+                        <button className="save" >save</button>
+                      </form>
+                    ) : (
+                      <div>
+                        <p className="task">{v.task}</p>
+                        <button
+                        className="edit"
+                          onClick={() => {
+                            setFlag(true);
+                            setX(v.task);
+                            setUpdate(v);
+                          }}
+                        >
+                          EDIT
+                        </button>
+                        <button
+                        className="delete"
+                          onClick={() => {
+                            dispatch(del_todo(v.id));
+                          }}
+                        >
+                          DELETE
+                        </button>
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </div>
 
     </>
